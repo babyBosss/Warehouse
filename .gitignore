@@ -1,0 +1,7 @@
+__pycache__/
+.idea/
+*.DS_Store
+*.jpg
+testing.py
+test_request.py
+config.py

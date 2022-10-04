@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Инвентаризация</title>
+</head>
+<body>
+{% include 'menubar.html' %}
+<br><br><br>
+{% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{ cat }}">{{ msg }}</div>
+{% endfor %}
+
+<form method="post">
+    <input name="save-invent" type="submit" value="Завершить инвентаризацию">
+    <br>
+    Введите штрихкод товара для добавления его на склад:
+    <br>
+    <br>
+    <table class="bc-table" id="bctable">
+        <tr>
+            <th align="center">Штрихкод:</th>
+        </tr>
+        <tr>
+            <td><input type="text" size="20" name="barcodes[]" required></td>
+        </tr>
+    </table>
+    <p id="bc_button">
+        <input name="add-bc" type="button" value="Добавить" onclick="AddMod()">
+        <input name="del-bc" type="button" value="Удалить" onclick="DelMod()">
+    </p>
+</form>
+{% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{ cat }}">{{ msg }}</div>
+{% endfor %}
+<script>
+    function AddMod() {
+        let t = document.createElement('tr');
+        t.innerHTML = '<td><input type="text" size="20" name="barcodes[]" required></td>';
+        document.getElementById("bctable").append(t);
+    }
+    function DelMod(){
+        let table = document.getElementById("bctable");
+        let last_tr = table.lastChild;
+        if (table.children.length > 1){
+            table.removeChild(last_tr)
+        }
+    }
+</script>
+
+<br><br><br>
+<br><br><br>
+Доступные штрихкоды:
+<table>
+    {% for i in bc_list %}
+        <tr><td>{{ i[0] }}</td></tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

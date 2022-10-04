@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/item.css')}}">
+    <title>Добавление товара</title>
+
+</head>
+
+<body>
+{% include 'menubar.html'%}
+
+<form method="post" enctype="multipart/form-data">
+    <p class="btns">
+        <input type="submit" value="Сохранить">
+        <input type="reset" value="Отменить">
+    </p>
+    {% for cat, msg in get_flashed_messages(True) %}
+        <div class="flash {{ cat }}">{{ msg }}</div>
+    {% endfor %}
+{#    <p class="item-name"><label><b>Название:</b></label><br><input id="item-name" type="text" name="name" required></p>#}
+    <div class="item-name">
+        <div id="name-cont">
+            <label><b>Название:</b></label>
+            <input id="item-name" type="text" name="name" required>
+        </div>
+    </div>
+
+    <div class="columns">
+        <div class="left-side">
+            <div class="block-one">
+                <div class="left-column">
+                    <div class="main-inf">
+{#                                        <p>Фотографии</p>#}
+{#                                        <p><img id="book-pic" src="/static/photos/${book.image}.jpg" height="100" width="100"></p>#}
+{#                                        <p><input type="file" name="photos" id = "book-file" onchange = "show (this)" multiple  required></p>#}
+{#                                        <input type="button" id="swap-button" size="2" value="->" onclick="swap()">#}
+                        <p><label>Бренд: </label><br><input type="text" size="40" name="brand"  required></p>
+                        <p><label>Артикул: </label><br><input type="text" size="40" name="vendor_code"  required></p>
+                        <p><label>Описание</label><br><textarea name="description" cols="40" rows="5" required></textarea></p>
+                        <p><label>Материал: </label><br><input type="text" name="material" size="40" required></p>
+                    </div>
+                </div>
+                <div class="prices-column">
+                    <table class="prices">
+                        <tr>
+                            <td><label>Цена закупки: </label></td>
+                            <td> <input type="text" size="10" name="first-price" required></td>
+                        </tr>
+                        <tr>
+                            <td><label>Цена продажи: </label></td>
+                            <td><input type="text" size="10" name="selling-price" required></td>
+                        </tr>
+                        <tr>
+                            <td><label>Цена со скидкой: </label></td>
+                            <td><input type="text" size="10" name="discount-price" required></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="dop-inf">
+                <div id="clm1">
+                    <p><label>Страна изготовитель:</label><br><input type="text" size="30" name="country" required></p>
+                    <p><label>Категория товара:</label><br><input type="text" size="30" name="category"  required></p>
+                    <p><label>Тип товара:</label><br><input type="text" size="30" name="type" required></p>
+                </div>
+                <div id="clm2">
+                    <p><label>ТН ВэД:</label><br><input type="text" size="30" name="tnvd" required></p>
+                    <p><label>Вес:</label><br><input type="text" size="30" name="weight" required></p>
+                    <p><label>Тип упаковки:</label><br><input type="text" size="30" name="packtype" required></p>
+                </div>
+                <div id="clm3">
+                    <p><label>Размеры упаковки:</label><br><input type="text" size="30" name="packsize" required></p>
+                    <p><label>Пол:</label><br><input type="text" size="30" name="gender" required></p>
+                    <p><label>Сезон:</label><br><input type="text" size="30" name="season" required></p>
+                </div>
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="modif-inner">
+                <table class="modif-tabl" id="modiftable">
+                    <caption><label>Модификации</label></caption>
+                    <tr>
+                        <th>Размер:</th><th>Цвет:</th><th>Количество:</th><th>Штрихкод:</th>
+                    </tr>
+                    <tbody id="modif-table-tbody">
+                        <tr>
+                            <td><input type="text" size="16" name="size[]" required></td>
+                            <td><input type="text" size="16" name="color[]" required></td>
+                            <td><input type="text" size="16" name="amount[]"  required></td>
+                            <td><input type="text" size="16" name="barcode[]"  >
+                                </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="btns" id="modif-btns">
+                    <input name="add-modif" type="button" value="Добавить" onclick="AddMod()">
+                    <input name="del-modif" type="button" value="Удалить" onclick="DelMod()">
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function AddMod() {
+            let t = document.createElement('tr');
+            t.innerHTML = '<td><input type="text" size="16" name="size[]">' +
+                '</td><td><input type="text" size="16" name="color[]"></td>' +
+                '<td><input type="text" size="16" name="amount[]"></td>' +
+                '<td><input type="text" size="16" name="barcode[]" ></td>';
+            document.getElementById("modif-table-tbody").append(t);
+        }
+        function DelMod(){
+            let table = document.getElementById("modif-table-tbody");
+            let last_tr = table.lastChild;
+            console.log(last_tr.nodeType);
+            console.log(table.children.length);
+            if (table.children.length > 1) {
+                table.removeChild(last_tr);
+            }
+        }
+        function show(f) {
+            var rd = new FileReader (); // Создаем объект чтения файла
+            var files = f.files [0]; // Получаем файлы в файловом компоненте
+            rd.readAsDataURL (files); // чтение файла заменено на тип base64
+            rd.onloadend = function(e) {
+                // После загрузки получаем результат и присваиваем его img
+                document.getElementById("book-pic").src = this.result;
+                {#var inp = document.getElementById('book-file');#}
+                {#for (var i = 0; i < inp.files.length; ++i) {#}
+                {#    var name = inp.files.item(i).name;#}
+                    {#alert("file name: " + name);#}
+
+            }
+        }
+        function swap(){
+            var pics = document.getElementById('book-pic');
+            {#alert(inp.getAttribute("src"));#}
+            var rd = new FileReader (); // Создаем объект чтения файла
+            var files = pics.files [0]; // Получаем файлы в файловом компоненте
+            rd.readAsDataURL (files);
+            rd.onloadend = function(e) {
+                // После загрузки получаем результат и присваиваем его img
+                {#alert(this.result);#}
+            }
+            {#document.getElementById("book-pic").src =  inp.files.item()#}
+        }
+    </script>
+</form>
+</body>
+</html>
+
+
+{#        <input type="submit" value="Отправить"></p>#}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/goods.css')}}">
+    <title>Товары</title>
+</head>
+<body>
+{% include 'menubar.html'%}
+
+<div id="add">
+    <a href="/goods/add_new">
+      <button id="add_btn" name="add_button">Добавить товар</button>
+    </a>
+
+<form method="post">
+    <input type="search" name="search_text_field" size="40" placeholder="Поиск товара" >
+    <input type="submit" id="find_btn" value="Найти" name="search_button">
+</form>
+</div>
+<hr/>
+
+<table>
+    <tr>
+        <th colspan="2">Название</th>
+        <th>Артикул</th>
+        <th>Цена</th>
+        <th>Остаток</th>
+    </tr>
+    {% for row in table %}
+    <tr onclick="window.location.href='/goods/{{row[1]}}/'; return false">
+        <td><img src="{{url_for('static',filename="photos/"+row[4])}}"></td>
+{#        {% for cell in row[1:]  %}#}
+{#        <td>{{ cell }}</td>#}
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+        <td>{{ row[2] }}</td>
+        <td>{{ row[3] }}</td>
+
+{#        {% endfor %}#}
+
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

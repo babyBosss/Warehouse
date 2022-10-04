@@ -1,0 +1,76 @@
+#add{
+    position: relative;
+    margin-top: 65px;
+    margin-left: 20%;
+    margin-right: 20px;
+
+}
+a{
+    text-decoration: none;
+}
+form{
+    position: relative;
+    display: inline-block;
+    /*margin-top: 65px;*/
+    margin-left: 70px;
+}
+
+#new_woff_btn, #find_woff_btn{
+    border-width: 1px;
+    border-radius: 0.2em;
+    border-color: black;
+}
+#new_woff_btn:hover, #new_woff_btn:focus, #find_woff_btn:hover, #find_woff_btn:focus{
+    color: #f3f3f3;
+    background-color: #1e1e1e;
+    /*outline: 0;*/
+    box-shadow: 0 0 5px 0 #3b4044 inset, 0 0 5px 2px #464646;
+
+}
+
+
+
+table {
+    position: absolute;
+    margin-top: 1%;
+    margin-left: 15%;
+    margin-right: 20%;
+    width: 60%;
+    border-spacing: 0 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+}
+th {
+    padding: 10px 20px;
+    background: #424242;
+    color: white ;
+    border-right: 2px solid;
+    font-size: 0.9em;
+}
+th:first-child {
+    text-align: center;
+}
+th:last-child {
+    border-right: none;
+}
+td {
+    vertical-align: middle;
+    padding: 5px;
+    font-size: 14px;
+    text-align: center;
+    border-top: 1px solid #56433D;
+    border-bottom: 1px solid #56433D;
+    border-right: 1px solid #56433D;
+}
+tr:hover{
+    background-color: #c4c3c3;
+}
+td:first-child {
+    border-left: 1px solid #56433D;
+    border-right: none;
+    text-align: left;
+    width: 5%;
+}
+td:nth-child(2){
+    text-align: left;
+}

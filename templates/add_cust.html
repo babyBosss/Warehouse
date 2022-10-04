@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить покупателя</title>
+</head>
+<body>
+{% include 'menubar.html' %}
+<br><br><br>
+{% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{ cat }}">{{ msg }}</div>
+{% endfor %}
+<form method="post">
+    <table>
+    <tr>
+        <th>Покупатель</th>
+        <th>Контактные данные</th>
+    </tr>
+    <tr>
+        <td><input type="text" name="cust_name" size="20"></td>
+        <td><input type="text" name="contact" size="20"></td>
+    </tr>
+    </table>
+    <input type="submit" value="Добавить">
+</form>
+</body>
+</html>

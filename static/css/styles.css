@@ -1,0 +1,78 @@
+ul.mainmenu{
+    width: 100%; /* Ширина основного блока меню */
+    height: 50px; /* Высота основного блока меню */
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    z-index: 1;
+    /*    display: table;*/
+
+}
+ul.mainmenu li {
+    display: table-cell;
+    position: relative;
+    /*height: 50px;*/
+    /*width: 100px;*/
+    text-align: center;
+    padding-right: 30px;
+}
+ul.mainmenu li a {
+    /*display: inline-block;*/
+    position: relative;
+    vertical-align: middle;
+    color: white;
+    text-decoration: none;
+}
+
+#logo1 {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#sett_menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+}
+#sett_menu li {
+    color: white;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    text-align: center;
+    margin-top: 8px;
+    margin-right: 15px;
+    margin-left: 0;
+}
+a{
+    text-decoration: none;
+}
+/*.logo{*/
+/*    width: 100%;*/
+/*}*/
+
+
+/*}*/
+    /*text-align:center;*/
+    /*background: #FFF;*/
+    /*line-height: 50px; !* Приравниваем к высоте, чтобы выровнять текст по вертикали *!*/
+
+/*ul.mainmenu li ul {*/
+/*    display: none; !* Скрываем выпадающее меню *!*/
+/*    position: absolute;*/
+/*    width: 100%;*/
+/*    margin: 0px;*/
+/*    padding: 0px;*/
+/*}*/
+/*ul.mainmenu li ul li {*/
+/*    display: block;*/
+/*}*/
+/*ul.mainmenu li:hover ul {*/
+/*    display: block; !* Показываем выпадающее меню, где оно есть, при наведении *!*/
+/*}*/

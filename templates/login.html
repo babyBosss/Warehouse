@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styles.css')}}">
+    <title>Login</title>
+</head>
+<body>
+
+<ul class="mainmenu">
+    <li class="logo">
+        <a href="https://choicefashion.ru">
+            <span><img id="logo1" src="{{url_for('static',filename='choice_logo.png')}}" alt="Лого" width="100px" height="50px"/></span>
+        </a>
+    </li>
+</ul>
+<ul id="sett_menu">
+
+
+    <li>
+        <a class="user" href="{{ url_for('login') }}">
+            <span><img id="user_logo" src="{{url_for('static',filename='user_logo.png')}}" alt=Профиль width="30px" height="30px"/></span>
+        </a>
+
+    </li>
+</ul>
+<br>
+
+<br>
+<div class="column is-4 is-offset-4">
+    <h3 class="title">Вход</h3>
+    {% for cat, msg in get_flashed_messages(True) %}
+        <div class="flash {{ cat }}">{{ msg }}</div>
+    {% endfor %}
+    <div class="box">
+        <form method="POST" action="">
+            <div class="field">
+                <div class="control">
+                    <input class="input" type="email" name="email" placeholder="Your Email" autofocus="">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input" type="password" name="password" placeholder="Your Password">
+                </div>
+            </div>
+            <div class="field">
+                <label class="checkbox">
+                    <input type="checkbox" name="remainme">
+                    Запомнить меня
+                </label>
+            </div>
+            <button class="button">Войти</button>
+        </form>
+    </div>
+<hr>
+    <a href="{{ url_for('singup')}}"> Регистрация</a>
+</div>
+</body>
+</html>

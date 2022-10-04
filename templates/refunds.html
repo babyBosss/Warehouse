@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/refunds.css')}}">
+    <title>Возвраты</title>
+</head>
+<body>
+{% include 'menubar.html'%}
+
+<div id="add">
+    <a href="/refunds/new_refund">
+        <button id="new_refund_btn" name="new_refund_button">Новый возврат</button>
+    </a>
+    <form method="post">
+        <input type="search" name="search_text_field" size="40" placeholder="Поиск возвратов" >
+        <input type="submit" id="find_refund_btn" value="Найти" name="search_refund_button">
+    </form>
+</div>
+<hr/>
+
+<table>
+    <tr >
+        <th>№</th>
+        <th>Время</th>
+        <th>Покупатель</th>
+        <th>Количество</th>
+        <th>Сумма</th>
+    </tr>
+    {% for row in refunds %}
+        <tr onclick="window.location.href='/refunds/{{row[0]}}/'; return false">
+            <td>{{ row[0]}}</td>
+            <td>{{row[1].strftime('%H:%M% %d-%m-%y')}}</td>
+            <td>{{row[2]}}</td>
+            <td>{{row[3]}}</td>
+            <td>{{row[4]}}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+
+
+</body>
+</html>

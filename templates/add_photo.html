@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photos</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/orders.css')}}">
+</head>
+<body>
+{% include 'menubar.html'%}
+
+<br><br><br><br>
+
+{% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{ cat }}">{{ msg }}</div>
+{% endfor %}
+
+<table>
+    <tr>
+        <th>Артикул<br> {{ artic }} </th>
+        <th>Цвет</th>
+        <th>Фотографии</th>
+        <th>Добавить фотографии</th>
+    </tr>
+    {% for row in colors_by_art %}
+        <form method="post" enctype="multipart/form-data">
+
+            <td></td>
+            <td >{{row[0]}}</td>
+            <td>
+
+                {% for photo in row[1] %}
+                    {% if photo is not none %}
+                        <div class="delete-image" id="ph-{{photo}}" style=' position: relative; display: inline-block; max-height: 80px; max-width: 80px;'>
+                            <img src="{{ "/static/photos/" + photo }}"  style=" height:100%; width:100%; object-fit: cover;">
+{#                            <input value="{{ photo }}" type="hidden">#}
+                            <input id="del-b-{{ photo }}" type="button" onclick="func(this)" value="X" style="position: absolute; top: 0; right:0;">
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </td>
+            <td>
+                <input type="file" name="photos" id = "file-container" onchange = "show(this)" multiple>
+                <input type="hidden" name="color" value="{{row[0]}}">
+                <input type="submit" name="sub" value="Сохранить">
+            </td>
+        </form>
+
+        </tr>
+    {% endfor %}
+</table>
+
+<script>
+    function show(f) {
+        {#alert(f.name)#}
+        {#var rd = new FileReader (); // Создаем объект чтения файла#}
+        {#var files = f.files [0]; // Получаем файлы в файловом компоненте#}
+        {#rd.readAsDataURL (files); // чтение файла заменено на тип base64#}
+        {#rd.onloadend = function(e) {#}
+        {#    // После загрузки получаем результат и присваиваем его img#}
+        {#    document.getElementById("book-pic").src = this.result;#}
+            {#var inp = document.getElementById('book-file');#}
+            {#for (var i = 0; i < inp.files.length; ++i) {#}
+            {#    var name = inp.files.item(i).name;#}
+            {#alert("file name: " + name);#}
+        //}
+    }
+
+    /* отправка формы через ajax */
+    function func(f){
+        var xml = new XMLHttpRequest();
+        xml.open("POST","{{ "/goods/" + artic + "/add_photo"}}", true );
+        xml.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xml.onload = function (){
+            var DataReply = JSON.parse(this.responseText);
+            {#alert(JSON.stringify(DataReply)); #}
+            var el = document.getElementById("ph-"+ f.id.toString().slice(6));
+            {#alert("ph-"+ f.id.toString().slice(6));#}
+            {#alert(el.tagName);#}
+            el.parentNode.removeChild(el);
+        };
+
+        dataSend = JSON.stringify({
+            'photo_to_delete': f.id
+        });
+        {#alert(f.id);#}
+        xml.send(dataSend);
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый заказ</title>
+</head>
+<body>
+{% include 'menubar.html'%}
+<br><br><br>
+
+<form method="post">
+    <input name="save-order" type="submit" value="Сохранить заказ">
+    Введите штрихкоды товаров, для добавления их в заказ:
+    <br>
+    <br>
+    <table class="bc-table" id="bctable">
+        <tr>
+            <th>Штрихкод:</th>
+            <th>Количество:</th>
+            <th>Цена продажи:</th>
+        </tr>
+        <tr>
+            <td><input type="text" size="20" name="barcodes[]" required></td>
+            <td><input type="text" size="5" name="amount[]" required></td>
+            <td><input type="text" size="10" name="selling-price[]"></td>
+        </tr>
+    </table>
+    <p id="bc_button">
+        <input name="add-bc" type="button" value="Добавить" onclick="AddMod()">
+        <input name="del-bc" type="button" value="Удалить" onclick="DelMod()">
+    </p>
+    Покупатель:
+    <input type="text" size="20" name="customer" required>
+</form>
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{ cat }}">{{ msg }}</div>
+{% endfor %}
+<script>
+    function AddMod() {
+        let t = document.createElement('tr');
+        t.innerHTML = '<td><input type="text" size="20" name="barcodes[]" required></td><td><input type="text" size="5" name="amount[]" required></td> <td><input type="text" size="10" name="selling-price[]"></td>';
+        document.getElementById("bctable").append(t);
+    }
+    function DelMod(){
+        let table = document.getElementById("bctable");
+        let last_tr = table.lastChild;
+        if (table.children.length > 1){
+            table.removeChild(last_tr)
+        }
+    }
+</script>
+
+<br><br><br>
+<br><br><br>
+Доступные штрихкоды:
+<table>
+{% for i in bc_list %}
+    <tr><td>{{ i[0] }}</td></tr>
+{% endfor %}
+</table>
+</body>
+</html>

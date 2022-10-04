@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/item.css')}}">
+    <title>Товар</title>
+</head>
+<body>
+{% include 'menubar.html'%}
+
+<form method="post" enctype="multipart/form-data">
+    <p class="btns">
+        <input type="submit" value="Сохранить изменения">
+        <input type="reset" value="Отменить">
+        <input type="button" onclick=window.location.href="{{ url_for(request.endpoint, **request.view_args) + 'add_photo' }}" value="Добавить фотографии">
+        <input type="button" name="wildberries" id="wildberries" value="Выложить на wildberries">
+        <input type="button" name="ozon" id="ozon" value="Выложить на Ozon">
+    </p>
+            {% for cat, msg in get_flashed_messages(True) %}
+                <div class="flash {{ cat }}">{{ msg }}</div>
+            {% endfor %}
+
+    <div class="item-name">
+        <div id="img-cont"><img src="{{photo_src}}" alt="photo"></div>
+        <div id="name-cont">
+            <label><b>Название:</b></label>
+            <input id="item-name" type="text" name="name" value="{{item[0][0]}}" required>
+        </div>
+    </div>
+
+    <div class="columns">
+        <div class="left-side">
+            <div class="block-one">
+                <div class="left-column">
+                    <div class="main-inf">
+        {#                <p>Фотографии</p>#}
+        {#                <p><input type="file" name="photos" multiple  required></p>#}
+                        <p><label>Артикул: </label><br><input type="text" size="40" name="vendor_code" value="{{ item[0][1] }}" required></p>
+                        <p><label>Бренд: </label><br><input type="text" size="40" name="brand" value="{{ item[0][2] }}" required></p>
+                        <p><label>Описание</label><br><textarea name="description" cols="40" rows="5" required>{{ item[0][3] }}</textarea></p>
+                        <p><label>Материал: </label><br><input type="text" name="material" size="40" value="{{ item[0][4] }}" required></p>
+                    </div>
+                </div>
+                <div class="prices-column">
+                    <table class="prices">
+                        <tr>
+                            <td><label>Цена закупки: </label></td>
+                            <td> <input type="text" size="10" name="first-price" value="{{ item[0][5] }}" required></td>
+                        </tr>
+                        <tr>
+                            <td><label>Цена продажи: </label></td>
+                            <td><input type="text" size="10" name="selling-price" value="{{ item[0][6] }}" required></td>
+                        </tr>
+                        <tr>
+                            <td><label>Цена со скидкой: </label></td>
+                            <td><input type="text" size="10" name="discount-price" value="{{ item[0][7] }}" required></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="dop-inf">
+                <div id="clm1">
+                    <p><label>Страна изготовитель:</label><br><input type="text" size="30" name="country" value="{{ item[0][8] }}"required></p>
+                    <p><label>Категория товара:</label><br><input type="text" size="30" name="category" value="{{ item[0][9] }}" required></p>
+                    <p><label>Тип товара:</label><br><input type="text" size="30" name="type" value="{{ item[0][10] }}" required></p>
+                </div>
+                <div id="clm2">
+                    <p><label>ТН ВэД:</label><br><input type="text" size="30" name="tnvd" value="{{ item[0][11] }}" required></p>
+                    <p><label>Вес:</label><br><input type="text" size="30" name="weight" value="{{ item[0][12] }}" required></p>
+                    <p><label>Тип упаковки:</label><br><input type="text" size="30" name="packtype" value="{{ item[0][13] }}" required></p>
+                </div>
+                <div id="clm3">
+                    <p><label>Размеры упаковки:</label><br><input type="text" size="30" name="packsize" value="{{ item[0][14] }}" required></p>
+                    <p><label>Пол:</label><br><input type="text" size="30" name="gender" value="{{ item[0][15] }}" required></p>
+                    <p><label>Сезон:</label><br><input type="text" size="30" name="season" value="{{ item[0][16] }}" required></p>
+                </div>
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="modif-inner">
+                <div class="table-corner">
+                <table class="modif-tabl" id="modiftable">
+                    <caption><label>Модификации</label></caption>
+                    <tr>
+                        <th>Размер:</th><th>Цвет:</th><th>Количество:</th><th>Штрихкод:</th>
+                    </tr>
+                    <tbody id="modif-table-tbody">
+                    {% for row in mods %}
+                    <tr>
+                        <td><input type="text" size="16" name="size[]" value="{{ row[1] }}" required></td>
+                        <td><input type="text" size="16" name="color[]" value="{{ row[2] }}" required></td>
+                        <td><input type="text" size="16" name="amount[]" value="{{ row[3] }}" required></td>
+                        <td><input type="text" size="16" name="barcode[]" value=" {{ row[0] }}" ></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+                <p class="btns" id="modif-btns">
+                    <input name="add-modif" type="button" value="Добавить" onclick="AddMod()">
+                    <input name="del-modif" type="button" value="Удалить" onclick="DelMod()">
+                </p>
+            </div>
+
+        <br><br><br>
+        </div>
+    </div>
+
+    <script>
+        function AddMod() {
+            let t = document.createElement('tr');
+            t.innerHTML = '<td><input type="text" size="16" name="size[]">' +
+                '</td><td><input type="text" size="16" name="color[]"></td>' +
+                '<td><input type="text" size="16" name="amount[]"></td>' +
+                '<td><input type="text" size="16" name="barcode[]" ></td>';
+            document.getElementById("modif-table-tbody").append(t);
+        }
+        function DelMod(){
+            let table = document.getElementById("modif-table-tbody");
+            let last_tr = table.lastChild;
+            console.log(last_tr.nodeType);
+            console.log(table.children.length);
+            if (table.children.length > 1) {
+                    table.removeChild(last_tr);
+            }
+        }
+    </script>
+
+</form>
+
+</body>
+</html>

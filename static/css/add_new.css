@@ -1,0 +1,97 @@
+form{
+    position: absolute;
+    top: 50px;
+    margin: 5px;
+}
+
+table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+table th {
+    font-weight: bold;
+    padding: 5px;
+    background: #efefef;
+    border: 1px solid #dddddd;
+}
+table td {
+    border: 1px solid #dddddd;
+    padding: 5px;
+}
+table tr td:first-child, .table tr th:first-child {
+    border-left: none;
+}
+table tr td:last-child, .table tr th:last-child {
+    border-right: none;
+}
+
+#btns input{
+    border-width: 1px;
+    border-radius: 0.2em;
+    border-color: black;
+    background-color: #e5e5e5;
+}
+ #btns input:active{
+    background-color: #1e1e1e;
+    box-shadow: 0 0 5px 0 #3b4044 inset, 0 0 5px 2px #464646;
+}
+#btns input:hover{
+    color: #f3f3f3;
+    background-color: #1e1e1e;
+}
+.item-name{
+    width: 70%;
+    background-color: rgba(234, 234, 234, 0.55);
+}
+#item-name{
+    width: 98%;
+}
+
+.columns{
+    display: flex;
+}
+.prices-column{
+    margin-left: 10%;
+    /*margin-right: 10px;*/
+}
+.prices{
+    background-color: rgba(234, 234, 234, 0.55);
+}
+
+.modif-column{
+    margin-left: 15%;
+    margin-right: 10px;
+}
+.modif-divs{
+    display: flex;
+    background-color: rgba(234, 234, 234, 0.55);
+}
+.modif-column.input{
+    display: block;
+    width: 100%;
+}
+
+.main-inf{
+    background-color: rgba(234, 234, 234, 0.55);
+}
+
+.main-inf textarea{
+    resize: vertical;
+}
+.dop-inf{
+    background-color: rgba(234, 234, 234, 0.55);
+    display: flex;
+    width: 70%;
+}
+
+#clm1{
+    margin-left: 5px;
+}
+#clm2{
+    margin-left: 30px;
+}
+#clm3{
+    margin-left: 30px;
+}
+

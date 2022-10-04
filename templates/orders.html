@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/orders.css')}}">
+    <title>Заказы</title>
+</head>
+<body>
+{% include 'menubar.html'%}
+
+<div id="add">
+    <a href="/orders/new_order">
+        <button id="new_order_btn" name="new_order_button">Создать заказ</button>
+    </a>
+
+    <form id="search" method="post">
+        <input type="search" name="search_text_field" size="40" placeholder="Поиск заказа" >
+        <input type="submit" id="find_order_btn" value="Найти" name="search_button">
+    </form>
+</div>
+<hr/>
+
+<form method="post" >
+<table>
+    <tr>
+        <th>№</th>
+        <th>Время</th>
+        <th>Покупатель</th>
+        <th>Статус</th>
+    </tr>
+    {% for row in orders %}
+        <tr onclick="window.location.href='/orders/{{row[0]}}/'; return false">
+            <td >{{row[0]}}</td>
+            <td>{{row[1].strftime('%H:%M% %d-%m-%y')}}</td>
+            <td>{{row[2]}}</td>
+            <td>
+                <select name="select[]" class="mySelect" onchange="this.form.submit()">
+                    <option {% if row[3]=='new'%} }} selected {% else %}{% endif %} value="0" id="new" disabled>Новый</option>
+                    <option {% if row[3]=='assembled'%} }} selected {% else %}{% endif %} value="1" id="assembled" disabled>Собран</option>
+                    <option {% if row[3]=='shipped'%} }} selected {% else %}{% endif %} value="2" id="shipped" disabled>Отгружен</option>
+                    <option {% if row[3]=='delivered'%} }} selected {% else %}{% endif %} value="3" id="delivered" disabled>Доставлен</option>
+                </select>
+            </td>
+        </tr>
+{#        <script>#}
+{#            var elect = document.querySelector('.mySelect');#}
+{#            elect.value = '4'#}
+{#        </script>#}
+    {% endfor %}
+</table>
+</form>
+
+</body>
+</html>
+
+
+
+{#    {% for row in table %}#}
+{#        <tr onclick="window.location.href='/goods/{{row[1]}}/'; return false">#}
+{#    <tr href="/goods/olololo">#}
+{#            <td><img src="{{url_for('static',filename='photo.jpg')}}"></td>#}
+{#            {% for cell in row  %}#}
+{#                <td>{{ cell }}</td>#}
+{#        <td>{{ row[0] }}</td>#}
+{#        <td>{{ row[1] }}</td>#}
+{#        <td>{{ row[2] }}</td>#}
+{#        <td>{{ row[3] }}</td>#}
+{##}
+{#            {% endfor %}#}
+{##}
+{#        </tr>#}
+{#    {% endfor %}#}

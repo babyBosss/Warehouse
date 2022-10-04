@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styles.css')}}">
+</head>
+<body>
+
+{%block mainmenu%}
+<ul class="mainmenu">
+    <li class="logo">
+        <a href="https://choicefashion.ru">
+            <span><img id="logo1" src="{{url_for('static',filename='choice_logo.png')}}" alt="Лого" width="100px" height="50px"/></span>
+        </a>
+    </li>
+    {% for m in menu%}
+        <li><a href="{{url_for(m.url)}}"><span>{{m.name}}</span></a> </li>
+    {% endfor%}
+</ul>
+<ul id="sett_menu">
+    <a class="user" href="{{ url_for('login') }}">
+    <li>{{current_user.get_name()}}</li>
+    <li>
+
+            <span><img id="user_logo" src="{{url_for('static',filename='user_logo.png')}}" alt=Профиль width="30px" height="30px"/></span>
+
+
+    </li>
+    </a>
+</ul>
+{%endblock%}
+
+</body>
+</html>
+
+
+
+{#<p>Обычный текст</p>#}
+{#<p><b>Текст жирным шрифтом</b></p>#}
+{#<p><big>Текст крупным шрифтом</big></p>#}
+{#<p><i>Текст курсивом</i></p>#}
+{#<p><small>Текст мелким шрифтом</small></p>#}
+{#<p><strong>Важный текст</strong></p>#}
+{#<p><sub>Подстрочный текст</sub></p>#}
+{#<p><sup>Надстрочный текст</sup></p>#}
+{#<p><ins>Вставленный текст</ins></p>#}
+{#<p><del>Удаленный текст</del></p>#}
+{#<hr width="500" align="left">#}
+{#{{url_for('static', filename='css/styles.css')}}#}

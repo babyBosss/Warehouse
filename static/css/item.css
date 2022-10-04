@@ -1,0 +1,265 @@
+form{
+    position: absolute;
+    width: 100%;
+    top: 50px;
+    left: 0;
+    right: 0;
+}
+#ozon{
+    float: right;
+    margin-right: 10px;
+    background-color: #005bff;
+    color: #ffffff;
+}
+
+#ozon:hover,#ozon:active{
+    color: #005bff;
+    background-color: #ffffff;
+}
+
+#wildberries{
+    float: right;
+    margin-right: 100px;
+    background-color: #BC3D96;
+    color: #ffffff;
+}
+
+#wildberries:hover,#wildberries:active{
+    color: #BC3D96;
+    background-color: #ffffff;
+}
+
+
+label{
+    font-family: Gill Sans, sans-serif;
+    font-size: 12pt;
+}
+.modif-tabl {
+    font-family: Gill Sans, sans-serif;
+    font-size: 12pt;
+    margin-bottom: 20px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    border: 3px solid rgb(234, 234, 234);
+}
+
+.modif-tabl th {
+    font-weight: normal;
+    padding: 5px;
+    background: rgb(234, 234, 234);
+    color: #000000;
+    border: 1px solid rgb(234, 234, 234);
+}
+.modif-tabl td {
+    border: 1px solid rgb(234, 234, 234);
+    padding: 5px;
+}
+/*.modif-tabl tr td:first-child, .table tr th:first-child {*/
+/*    border-left: none;*/
+/*}*/
+/*.modif-tabl tr td:last-child, .table tr th:last-child {*/
+/*    border-right: none;*/
+/*}*/
+
+.modif-tabl input{
+    border: 0;
+}
+.btns{
+    margin-left: 30px;
+}
+.btns input{
+    border-width: 1px;
+    border-radius: 0.2em;
+    border-color: black;
+    background-color: #e5e5e5;
+}
+.btns input:active{
+    background-color: #1e1e1e;
+    box-shadow: 0 0 5px 0 #3b4044 inset, 0 0 5px 2px #464646;
+}
+.btns input:hover{
+    color: #f3f3f3;
+    background-color: #1e1e1e;
+}
+
+
+.item-name{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 70%;
+    max-width: 70%;
+    background-color: rgb(234, 234, 234);
+    margin-left: 20px;
+    /*padding: 5px;*/
+    border-radius: 10px;
+    border-color: white;
+}
+.item-name div{
+    display: flex;
+    flex-direction: column;
+}
+.item-name img{
+    border-radius: 10px;
+    border-color: white;
+    height:80px;
+    margin: 0;
+    width: auto;
+    /*display: inline-block;*/
+}
+#name-cont{
+    display: inline;
+    justify-content:center;
+    max-height: 90%;
+    /*padding: 5px;*/
+    margin: 10px;
+    padding: 0;
+    max-width: 100%;
+    width: 99%;
+    min-width: 60%;
+}
+
+#item-name{
+    height: 18px;
+    padding: 5px;
+    max-width: 100%;
+    min-width: 50%;
+    width: 99%;
+    font-size: 1em;
+    margin-top: 12px;
+    /*border-bottom-right-radius: 7px;*/
+    /*border-top-right-radius: 7px;*/
+    border-radius: 7px;
+}
+
+.columns{
+    margin-top: 10px;
+    margin-left: 15px;
+}
+.left-side{
+    width: 50%;
+    float: left;
+}
+
+.right-side{
+    width: 50%;
+    /*margin-top: 1em;*/
+    float: right;
+
+}
+.block-one{
+    display: flex;
+    /*width: 100%;*/
+}
+
+.left-column{
+    margin-top: 1em;
+    padding-right: 2%;
+    width: 48%;
+}
+.prices-column{
+    width: 50%;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+}
+
+.prices{
+    margin-top: 1em;
+    border: 0;
+    background-color: rgb(234, 234, 234);
+    border-spacing: 10px;
+    border-radius: 10px;
+}
+
+
+.main-inf{
+    max-height: 90%;
+    max-width: 100%;
+    background-color: rgb(234, 234, 234);
+    border-radius: 10px;
+    border-color: white;
+    /*margin: 5px;*/
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+.main-inf input, textarea{
+    width: 90%;
+}
+.main-inf p {
+    margin-left: 20px;
+    margin-top: 0;
+    max-width: 95%;
+}
+.main-inf textarea{
+    resize: vertical;
+    overflow: auto;
+    min-height:120px;
+    max-height: 220px;
+    max-width: 90%;
+    border: none;
+    font-family: Gill Sans, sans-serif;
+}
+
+.modif-divs{
+    /*display: flex;*/
+    /*background-color: rgba(234, 234, 234, 0.55);*/
+}
+.modif-column.input{
+    display: block;
+    width: 100%;
+}
+.right-side{
+    display: flex;
+    justify-content: center;
+}
+.modif-inner{
+    display: block;
+    max-width: 80%;
+}
+#modif-btns{
+    float: right;
+    margin-top: 0;
+}
+
+.dop-inf{
+    margin-top: 10px;
+    width: 94%;
+    background-color: rgb(234, 234, 234);
+    border-radius: 10px;
+    border-color: white;
+    /*display: inline;*/
+    columns: 3;
+    padding: 2% 2% 2% 0;
+    /*-moz-columns: 30px 3;*/
+    /*-webkit-columns: 30px 3;*/
+    /*justify-content: left;*/
+}
+.dop-inf p {
+    margin-left: 20px;
+    margin-top:0;
+    margin-bottom: 15px;
+}
+.dop-inf input{
+    max-width: 80%;
+}
+
+input[type="text"], textarea{
+    font-family: inherit; /* 1 */
+    font-size: 14px; /* 1 */
+    /*line-height: inherit; !* 1 *!*/
+    border: none;
+    border-color: #f3f3f3;
+    border-radius: 3px;
+    outline:none;
+    /*border-bottom: 1px solid rgba(234, 234, 234, 0.29); // add only bottom border;*/
+}
+
+:active, :hover, :focus {
+    outline: 0;
+    outline-offset: 0;
+}
+
+

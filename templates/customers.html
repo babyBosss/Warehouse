@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Покупатели</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/styles.css')}}">
+
+</head>
+<body>
+{% include 'menubar.html' %}
+<br><br><br>
+{% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{ cat }}">{{ msg }}</div>
+{% endfor %}
+<table border="3" cellspacing="0" cellpadding="5" align="center" style="text-align: center">
+<tr>
+    <th>Покупатель</th>
+    <th>Контактные данные</th>
+</tr>
+{% for c in cust_list %}
+    <tr>
+    {%  for i in c %}
+        <td>{{ i }}</td>
+    {% endfor %}
+    </tr>
+{% endfor %}
+    <tr>
+        <td colspan="2" style="border: white"><button type="button" onclick="location.href='{{url_for("add_cust")}}'" >Добавить покупателя</button></td>
+    </tr>
+</table>
+<br>
+
+</body>
+</html>

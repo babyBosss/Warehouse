@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/writeoff.css')}}">
+    <title>Списания</title>
+</head>
+<body>
+{% include 'menubar.html'%}
+
+<div id="add">
+    <a href="/writeoff/add_woff">
+        <button id="new_woff_btn" name="new_woff_button">Создать списание</button>
+    </a>
+    <form method="post">
+        <input type="search" name="search_text_field" size="40" placeholder="Поиск" >
+        <input type="submit" id="find_woff_btn" value="Найти" name="search_woff_button">
+    </form>
+</div>
+<hr/>
+{##}
+{#<table>#}
+{#    <tr>#}
+{#        <th>№</th>#}
+{#        <th>Время</th>#}
+{#        <th>Пользователь</th>#}
+{#        <th>Количество товаров</th>#}
+{#        <th>Сумма</th>#}
+{#    </tr>#}
+    {#    {% for row in table %}#}
+    {#        <tr onclick="window.location.href='/goods/{{row[1]}}/'; return false">#}
+    {#    <tr href="/goods/olololo">#}
+    {#            <td><img src="{{url_for('static',filename='photo.jpg')}}"></td>#}
+    {#            {% for cell in row  %}#}
+    {#                <td>{{ cell }}</td>#}
+    {#        <td>{{ row[0] }}</td>#}
+    {#        <td>{{ row[1] }}</td>#}
+    {#        <td>{{ row[2] }}</td>#}
+    {#        <td>{{ row[3] }}</td>#}
+    {##}
+    {#            {% endfor %}#}
+    {##}
+    {#        </tr>#}
+    {#    {% endfor %}#}
+{#</table>#}
+
+
+
+</body>
+</html>

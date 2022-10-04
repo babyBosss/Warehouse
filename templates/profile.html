@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/profile.css')}}">
+</head>
+<body>
+{% include "menubar.html" %}
+<br>
+<br>
+<br>
+<br>
+ Ваш ID: {{current_user.get_id()}}
+<br>
+Статус: Сотрудник
+<br>
+<br>
+<form method="POST">
+<table>
+    <tr>
+        <td>Имя пользователя: </td><td><textarea name="username" cols="30" rows="1" required>{{ current_user.get_name() }}</textarea></td>
+    </tr>
+    <tr>
+        <td>Номер телефона: </td><td><textarea name="phone" cols="30" rows="1" required>{{ current_user.get_phone() }}</textarea></td>
+    </tr>
+    <tr>
+        <td>Email адрес: </td><td><textarea name="email" cols="30" rows="1" required>{{ current_user.get_email() }}</textarea></td>
+    </tr>
+</table>
+<button class="button is-block is-info is-large is-fullwidth" type="submit">Сохранить изменения</button>
+    {% for cat, msg in get_flashed_messages(True) %}
+        <div class="flash {{ cat }}">{{ msg }}</div>
+    {% endfor %}
+</form>
+<hr>
+<a href = "{{url_for('logout')}}"> Выйти из профиля</a>
+
+</body>
+</html>
