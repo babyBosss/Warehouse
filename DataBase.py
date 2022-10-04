@@ -105,7 +105,6 @@ class DataBase:
             return {}
 
     def add_item_modif(self, vendor_code, sizes, colors, amount, barcode):
-        # print(barcode)
         one = True
         m = 0
         for num, zn in enumerate(sizes):
@@ -484,41 +483,3 @@ class DataBase:
 #             connection.close()
 #             print("[INFO] PostgreSQL connection closed")
 
-
-# class FDataBase:
-#     def __init__(self, db):
-#         self.__db = db
-#         self.__cur = db.cursor()
-#
-#     def get_table(self):
-#         sql = '''SELECT * FROM "Books"'''
-#         try:
-#             self.__cur.execute(sql)
-#             res = self.__cur.fetchall()
-#             if res:
-#                 return res
-#         except:
-#             print("Ошибка чтения из БД")
-#         return []
-
-    # def add_new_book(self, name, author, year):
-    #     try:
-    #         # !!!!!!!!!!!!!!!!!!!!!!!! автор
-    #         author == None
-    #         self.__cur.execute("INSERT INTO Books VALUES (NULL, ?,?,?,?)", (name, author, year, 1))
-    #         self.__db.commit()
-    #         print("okkkkkkkkkkkkk")
-    #     except sqlite3.Error as e:
-    #         print("Ошибка добаввления статьи в БД" + str(e))
-    #         return False
-    #     return True
-    #
-    # def get_books(self):
-    #     try:
-    #         self.__cur.execute("""SELECT * FROM Books ORDER BY "ID_book" """)
-    #         res = self.__cur.fetchall()
-    #         if res:
-    #             return res
-    #     except sqlite3.Error as e:
-    #         print("Ошибка получения списка книг из БД " + str(e))
-    #     return []
