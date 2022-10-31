@@ -9,7 +9,6 @@ import psycopg2
 from config import host, user, password, db_name
 
 
-
 UPLOAD_FOLDER = 'static/photos/'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 SECRET_KEY = 'hard to guess string'
@@ -19,9 +18,6 @@ app.config['SECRET_KEY'] = SECRET_KEY
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
-# conn = sqlite3.connect("identifier.sqlite", check_same_thread=False)
-# cursor = conn.cursor()
-# app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 menu = [{'name': 'Товары', 'url': 'goods'},
         {'name': 'Заказы', 'url': 'orders'},
         {'name': 'Возвраты', 'url': 'refunds'},
@@ -42,6 +38,7 @@ login_manager.login_message_category = "success"
 @login_manager.user_loader
 def load_user(user_id):
     return User().fromdB(user_id, dbase)
+
 
 def get_db():
     """ Возвращает объект соединения с БД"""
@@ -120,13 +117,13 @@ def refunds():
     refunds_list = dbase.get_refunds_list()
     return render_template('refunds.html', menu=menu, refunds=refunds_list)
 
+
 @app.route('/refunds/<ref_numb>/')
 @login_required
 def one_refund(ref_numb):
     print(ref_numb, type(ref_numb))
     refund = dbase.get_one_refund(int(ref_numb))
     return render_template('refund_number.html', menu=menu, refund=refund)
-
 
 
 @app.route('/writeoff/')
@@ -145,8 +142,8 @@ def postings():
 @login_required
 def inventory():
     inv_list = dbase.get_invent_preview()
-
     return render_template('inventory.html', menu=menu, inv_list=inv_list)
+
 
 @app.route('/inventory/new_inventory/', methods=["GET","POST"])
 @login_required
@@ -162,6 +159,7 @@ def new_inventory():
             flash("Возникла ошибка, проверьте введенные данные")
     return render_template('new_inventory.html', menu=menu, bc_list=bc_list)
 
+
 @app.route('/customers/')
 @login_required
 def customers():
@@ -169,11 +167,10 @@ def customers():
     return render_template('customers.html', menu=menu, cust_list=cust)
 
 
-
 @app.route('/customers/add_cust/', methods=["GET","POST"])
 @login_required
 def add_cust():
-    if request.method=="POST":
+    if request.method == "POST":
         name = request.form.get("cust_name")
         contact = request.form.get("contact")
         r = dbase.add_customers(name,contact)
@@ -186,8 +183,7 @@ def add_cust():
 
 @app.route('/')
 @login_required
-def stand():  # put application's code here
-    # print(url_for('hello_world'))
+def stand():
     return render_template('menubar.html', menu=menu)
 
 
@@ -231,10 +227,10 @@ def add_photo(artic):
             return redirect(f"/goods/{artic}/add_photo")
     return render_template('add_photo.html', menu=menu, colors_by_art=colors, artic=artic)
 
+
 @app.route('/goods/add_new/', methods=['GET', 'POST'])
 @login_required
 def add_new():
-
     if request.method == 'POST':
         name = request.form.get('name')
         vendor_code = request.form.get('vendor_code')
@@ -261,21 +257,6 @@ def add_new():
 
         # name,vendor_code,description,material,first_price,selling_price,discount_price,size,color,amount,country,category,type,tnvd,weight, packtype,packsize,gender,season
         barcode = request.form.getlist('barcode[]')
-
-        # files = request.files.getlist("photos")
-        # paths = []
-        # for file in files:
-        #     if file and allowed_file(file.filename):
-        #         filename = secure_filename(file.filename)
-        #         path_to_file = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        #         print(path_to_file)
-        #         paths.append(path_to_file)
-        #         # if os.path.exists(path_to_file):
-        #         #     pass # ? сохранение файлов с одинокавым названием
-        #         file.save(path_to_file)
-        #     else:
-        #         print("Данный тип файла недоступен для загрузки")
-        # paths = " ".join(paths)
         try:
             dbase.add_item(name, vendor_code, brand, description, material,
                      first_price, selling_price, discount_price, country,
@@ -285,17 +266,6 @@ def add_new():
             flash("Товар успешно сохранен")
         except:
             flash("Не удалось добавить товар, либо модификации")
-
-
-        # cursor = get_db().cursor()
-    # добавление товара в базу данных, добавить полноценную функцию
-    #     cursor.execute("INSERT INTO goods(name, vendor_code, description, material, first_price, selling_price, discount_price, country, category, type, tnvd, weight, packtype, packsize, gender, season) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);", (name, vendor_code, description, material, first_price, selling_price, discount_price, country, category, type, tnvd, weight, packtype, packsize, gender, season))
-    #     get_db().commit()
-        ## cursor.close()
-        ## get_db().close()
-
-        # print(name + '\n' + vendor_code + '\n' + description + '\n')
-
 
         return redirect(url_for('add_new'))
     return render_template('add_new.html', menu=menu)
@@ -354,9 +324,6 @@ def goods_art(artic):
     return render_template("item.html", menu=menu, item=item, mods=m, photo_src=photo)
 
 
-
-
-# вход
 @app.route('/login/', methods = ["POST","GET"])
 def login():
     if current_user.is_authenticated:
@@ -380,8 +347,6 @@ def login():
     return render_template('login.html', menu=menu)
 
 
-
-# регистрация
 @app.route('/singup/', methods=["POST", "GET"])
 def singup():
     if dbase.has_admin():
@@ -465,7 +430,6 @@ def add_staff():
     return render_template('add_staff.html', menu=menu)
 
 
-
 @app.route("/orders/new_order/", methods=['GET', 'POST'])
 @login_required
 def new_order():
@@ -486,6 +450,7 @@ def new_order():
             flash("Ошибка записи заказа в БД")
     return render_template("new_order.html", menu=menu, bc_list=bc_list )
 
+
 @app.route("/refunds/new_refund/", methods=["GET","POST"])
 @login_required
 def new_refund():
@@ -503,6 +468,7 @@ def new_refund():
             flash("Ошибка записи заказа в БД")
     return render_template("new_refund.html", menu=menu, bc_list=bc_list)
 
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
@@ -518,6 +484,7 @@ def check_valid(s):
     else:
         print("2")
         raise ValueError("Неверный ввод данных")
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',debug=True)

@@ -10,6 +10,7 @@ class User():
     # при авторизации на сайте
     def create(self, user):
         self.__user = user
+        
         return self
 
     def is_authenticated(self):

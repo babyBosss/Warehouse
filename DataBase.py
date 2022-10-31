@@ -1,8 +1,4 @@
-import psycopg2
-from config import host, user, password, db_name
 from collections import Counter
-
-empty_table_flag = True
 
 
 class DataBase:
@@ -77,8 +73,6 @@ class DataBase:
     def add_item(self, name, vendor_code, brand, description, material,
                  first_price, selling_price, discount_price, country,
                  category, type, tnvd, weight, packtype, packsize, gender, season):
-        # print((name, vendor_code, description, material, first_price, selling_price, discount_price,
-        #        country, category, type, tnvd, weight, packtype, packsize, gender, season))
         self.__cur.execute(f"""INSERT INTO goods(name, vendor_code, brand, description, material, first_price,
              selling_price, discount_price, country, category, type, tnvd, weight, packtype,
              packsize, gender, season) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);""",
@@ -129,23 +123,7 @@ class DataBase:
                                    (vendor_code, str(m), zn, colors[num], amount[num]))
                 self.__db.commit()
 
-        # if len(barcode)>0:
-        #     self.__cur.execute(f"DELETE FROM modifications WHERE vendor_code='{vendor_code}';")
-        #     for num, zn in enumerate(sizes):
-        #         self.__cur.execute(f"INSERT INTO modifications(vendor_code, barcode, size, color, amount) VALUES (%s,%s,%s,%s,%s);",
-        #                            (vendor_code, str(barcode[num]), zn, colors[num], amount[num]))
-        #         self.__db.commit()
-        # else:
-        #     self.__cur.execute(f"SELECT MAX(barcode) FROM modifications;")
-        #     m = self.__cur.fetchone()
-        #     m = int(m[0])
-        #     if m is None:
-        #         m = '2000000000'
-        #     for num, zn in enumerate(sizes):
-        #         m = m + 1
-        #         self.__cur.execute(f"INSERT INTO modifications(vendor_code, barcode, size, color, amount) VALUES (%s,%s,%s,%s,%s);",
-        #                            (vendor_code, str(m), zn, colors[num], amount[num]))
-        #         self.__db.commit()
+
 
     def add_order(self, barcodes, amount, selling_price, customer):
         self.__cur.execute(f"SELECT cust_id FROM customers WHERE cust_name = '{customer[0]}';")
@@ -156,16 +134,13 @@ class DataBase:
             self.__cur.execute(f"SELECT cust_id FROM customers WHERE cust_name = '{customer[0]}';")
             cust_id = self.__cur.fetchone()
 
-        # print(barcodes)
-        # colv = Counter(barcodes)
+
         try:
             self.__cur.execute(f" INSERT INTO orders(status, customer, datetime) VALUES (%s,%s,%s);", ('new', cust_id, 'now' ))
             self.__db.commit()
             self.__cur.execute(f"SELECT MAX(order_number) FROM orders;")
             ord_numb = self.__cur.fetchone()[0]
             for kl,zn in enumerate(barcodes):
-            # for bar in colv:
-                # int(colv[bar])
                 self.__cur.execute(f" INSERT INTO single_order(order_number, barcode, amount, selling_price) VALUES (%s,%s,%s,%s);", (int(ord_numb), str(zn), int(amount[kl]), str(selling_price[kl])))
                 # self.__cur.execute(f"UPDATE modifications SET amount = amount - 1 WHERE barcode='{str(bar)}';")
                 self.__db.commit()
@@ -185,7 +160,6 @@ class DataBase:
     def get_order_list(self):
         try:
             self.__cur.execute(f"SELECT order_number, datetime, cust_name, status  FROM orders JOIN customers ON orders.customer=customers.cust_id ORDER BY order_number desc;")
-            # self.__cur.execute(f"SELECT order_number, datetime, cust_name, modifications.vendor_code FROM orders JOIN customers ON orders.customer=customers.cust_id JOIN modifications ON orders.barcode = modifications.barcode ORDER BY order_number desc ;")
             res = self.__cur.fetchall()
             return res
         except:
@@ -238,13 +212,6 @@ class DataBase:
             self.__db.commit()
 
 
-        # print(order_numb, status, barcodes, amounts, prices, customer, sep="\n", end="\n\n\n")
-#         1
-# assembled
-# ['2000000001']
-# ['1']
-# ['15990']
-# Константин Московский
     def get_one_photo(self, artic):
         self.__cur.execute(f"SELECT photo FROM photos WHERE vendor_code='{artic}' order by photo ;")
         res = self.__cur.fetchone()
@@ -391,7 +358,6 @@ class DataBase:
     #     returns name, vendor_code, color, size, amount, selling_price, first_price
         return res
 
-
     def get_customers(self):
         try:
             self.__cur.execute(f"SELECT cust_name, contact FROM customers order by cust_name;")
@@ -430,7 +396,7 @@ class DataBase:
             else:
                 num = num[0] + 1
             self.__cur.execute(f"INSERT INTO inventory(amount,amount_before, datetime, user_id, inventory_number) VALUES (%s,%s,%s,%s,%s);",
-                               ('0',amount_before, 'now', user, num))
+                               ('0', amount_before, 'now', user, num))
             self.__db.commit()
             try:
                 for i in barcodes:
