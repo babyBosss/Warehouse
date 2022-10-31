@@ -17,5 +17,11 @@ ___
 8.Personal account (admin/user)  
 
 ---
-Work on interaction with marketplaces is in progress
+Work on interaction with marketplaces is in progress  
+___
 
+Main page preview     
+![Preview mainpage](/preview/ph1.png)  
+
+Product page preview
+![Preview product page](/preview/ph2.png)
